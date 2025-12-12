@@ -23,6 +23,7 @@
                     <th>Nama</th>
                     <th>Deskripsi</th>
                     <th>Kapasitas</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +33,17 @@
                     <td>{{ $room->name }}</td>
                     <td>{{ $room->description ?: '-' }}</td>
                     <td>{{ $room->capacity }} orang</td>
+                    <td>
+                        {{-- Tombol edit --}}
+                        <a href="{{ route('rooms.edit', $room->id) }}">Edit</a>
+
+                        <!-- Tombol Delete dengan Konfirmasi -->
+                        <form action="{{ route('rooms.destroy', $room->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus?')">Hapus</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
